@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -23,4 +24,11 @@ public class Contrat {
     private BigDecimal montantTotal;
 
     private Boolean valide;
+
+    @OneToOne
+    @JoinColumn(name = "id_reservation")
+    private Reservation reservation;
+
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Paiement> paiements;
 }
